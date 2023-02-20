@@ -210,4 +210,19 @@ const addEmployee = () => {
         const role_id = selectRole().indexOf(answer.role) + 1
         const manager_id = selectManager().indexOf(answer.manager) + 1
         db.query("INSERT INTO employees SET ?", 
+        {
+            first_name: answer.first_name,
+            last_name: answer.last_name,
+            manager_id: manager_id,
+            role_id: role_id
+        }, (err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log("EMPLOYEE ADDED")
+                console.table(answer)
+            }
+        })
+        manageCompany()
+    })
 }
