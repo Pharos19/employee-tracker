@@ -227,7 +227,7 @@ const addEmployee = () => {
     })
 }
 
-const updateEmployee = () +> {
+const updateEmployee = () => {
     inquirer.prompt([
         {
             type: "input",
@@ -263,3 +263,41 @@ const updateEmployee = () +> {
             })
     })
 }
+
+const addDept = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What department would you like to add?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is the new department ID number?",
+            name: "id"
+        }
+    ]).then(answer => {
+        db.query("INSERT INTO department SET ?", 
+        {
+            name: answer.name,
+            id: answer.id
+        }, (err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.table(answer)
+            }
+        })
+        manageCompany()
+    })
+}
+
+const addRole = () => {
+    db.query("SELECT roles.title AS Title, roles.salary AS Salary, department.name AS Department FROM roles LEFT JOIN department ON roles.department_id = department.id", (err, res) => {
+        if (err) throw err
+        inquirer.prompt([
+            {
+                type: "input",
+                message: "What is the name of the new role?",
+                name: "title"
+            },
