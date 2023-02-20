@@ -182,3 +182,32 @@ const selectDepartment = () => {
     return deptArr
 }
 
+const addEmployee = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the employee's first name?",
+            name: "first_name"
+        },
+        {
+            type: "input",
+            message: "What is the employee's last name?",
+            name: "last_name"
+        },
+        {
+            type: "input",
+            message: "What is the role of this employee?",
+            name: "role",
+            Choices: selectRole()
+        },
+        {
+            type: "input",
+            message: "Who is the manager of this employee?",
+            name: "manager",
+            Choices: selectManager()
+        }
+    ]).then(answer => {
+        const role_id = selectRole().indexOf(answer.role) + 1
+        const manager_id = selectManager().indexOf(answer.manager) + 1
+        db.query("INSERT INTO employees SET ?", 
+}
