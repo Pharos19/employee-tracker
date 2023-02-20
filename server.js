@@ -138,3 +138,47 @@ const selectRole = () => {
     })
     return roleArr
 }
+
+let employeeArr = []
+const selectEmployee = () => {
+    db.query("SELECT last_name FROM employees", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            for (var i = 0; i < res.length; i++) {
+                employeeArr.push(res[i].last_name)
+            }
+            
+        }
+    })
+    return employeeArr
+}
+
+let managersArr = []
+const selectManager = () => {
+    db.query("SELECT first_name, last_name FROM employees", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            for (var i = 0; i < res.length; i++) {
+                managersArr.push(res[i].first_name)
+            }
+        }
+    })
+    return managersArr
+}
+
+let deptArr = []
+const selectDepartment = () => {
+    db.query("SELECT * FROM department", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            for (var i = 0; i < res.length; i++) {
+                deptArr.push(res[i].name)
+            }
+        }
+    })
+    return deptArr
+}
+
