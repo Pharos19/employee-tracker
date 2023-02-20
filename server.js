@@ -17,7 +17,7 @@ const manageCompany = async () => {
             type: "list",
             message: "Select from the options listed:",
             name: "response",
-            choice: [
+            choices: [
                 "View all departments",
                 "View all roles",
                 "View all employees",
@@ -301,3 +301,42 @@ const addRole = () => {
                 message: "What is the name of the new role?",
                 name: "title"
             },
+            {
+                type: "input",
+                message: "What is the new role's Id?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is the salary of the new role?",
+                name: "salary"
+            },
+            {
+                type: "list",
+                message: "Under which department does this new role fit?",
+                name: "department",
+                choices: selectDepartment()
+            }
+        ]).then(answer => {
+            const deptId = selectDepartment().indexOf(answer.department) + 1
+            db.query("INSERT INTO roles SET ?", 
+            {
+                title: answer.title,
+                id: answer.id,
+                salary: answer.salary,
+                department_id: deptId
+            }, (err) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.table(res)
+                }
+            })
+            manageCompany()
+        })
+    })
+}
+
+
+
+manageCompany()
