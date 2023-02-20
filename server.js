@@ -40,9 +40,9 @@ const manageCompany = async () => {
         viewRoles()
     } else if (response === 'View all employees') {
         viewEmployees()
-    } else if (response === 'View all employees by department') [
+    } else if (response === 'View all employees by department') {
         viewEmpByDept()
-    ] else if (response === 'View all employees by role') {
+    } else if (response === 'View all employees by role') {
         viewEmpByRole()
     } else if (response === 'Add a department') {
         addDept()
@@ -61,3 +61,32 @@ const manageCompany = async () => {
 
 }
 
+const viewEmployees = () => {
+    db.query(`SELECT employees.first_name AS First_Name,
+    employees.last_name AS Last_Name,
+    roles.title AS Role, department.name AS Dept,
+    roles.salary AS Salary,
+    CONCAT(e.first_name, ' ' ,e.last_name) AS Manager
+      FROM employees
+        INNER JOIN roles ON employees.role_id = roles.id
+        INNER JOIN department ON roles.department_id = department.id
+        LEFT JOIN employees e ON employees.manager_id = e.id`, (err, res) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.table(res)
+            }
+        manageCompany()
+        })
+}
+
+const viewDept = () => {
+    db.query("SELECT department.id AS Id, department.name AS Department FROM department", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.table(res)
+        }
+        manageCompany()
+    })
+}
