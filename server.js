@@ -226,3 +226,40 @@ const addEmployee = () => {
         manageCompany()
     })
 }
+
+const updateEmployee = () +> {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Please confirm you would like to update an employee by typing 'Y'",
+            name: "confirm"
+        },
+        {
+            type: "list",
+            message: "What is the last name of the employee?",
+            name: "last_name",
+            choices: selectEmployee()
+        },
+        {
+            type: "list",
+            message: "PWhat is the new role of the employee?",
+            name: "role",
+            choices: selectRole()
+        }
+    ]).then(answer => {
+        let employee_id = selectEmployee().indexOf(answer.last_name) + 1
+        let role_id = selectRole().indexOf(answer.role) + 1
+        db.query(`UPDATE employees SET ? WHERE employees.id = ${employee_id}`,
+            {
+                role_id: role_id
+            }, (err, res) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.table(res)
+                    console.log("---UPDATED EMPLOYEE---")
+                    manageCompany()
+                }
+            })
+    })
+}
