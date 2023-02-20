@@ -90,3 +90,51 @@ const viewDept = () => {
         manageCompany()
     })
 }
+
+const viewRoles = () => {
+    db.query("SELECT roles.id AS Dept_Id, roles.title AS Title FROM roles", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.table(res)
+        }
+    manageCompany()
+    })
+}
+
+const viewEmpByDept = () => {
+    db.query("SELECT employees.first_name AS First_Name, employees.last_name AS Last_Name, department.name AS Department FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN department ON roles.department_id = department.id ORDER BY department.id", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.table(res)
+        }
+    manageCompany()
+    })
+}
+
+const viewEmpByRole = () => {
+    db.query("SELECT employees.first_name AS First_Name, employees.last_name AS Last_Name, roles.title AS Title FROM employees INNER JOIN roles ON employees.role_id = roles.id ORDER BY roles.id", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.table(res)
+        }
+    manageCompany()
+    })
+}
+
+
+let roleArr = []
+const selectRole = () => {
+    db.query("SELECT * FROM roles", (err, res) => {
+        if (err) {
+            console.log(err)
+        } else {
+            for (var i = 0; i < res.length; i++) {
+                roleArr.push(res[i].title)
+            }
+        }
+    })
+    return roleArr
+}
