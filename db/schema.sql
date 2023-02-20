@@ -9,8 +9,8 @@ CREATE TABLE department (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE roles(
-    id INT NOT NULL AUT0_INCREMENT,
+CREATE TABLE roles (
+    id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL NOT NULL,
     department_id INT,
@@ -32,5 +32,5 @@ CREATE TABLE employees (
     manager_id INT,
     FOREIGN KEY (manager_id)
     REFERENCES employees(id)
-    ON DELETE SET NULL
+    ON DELETE SET NULL 
 )
