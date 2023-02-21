@@ -20,7 +20,7 @@ Please run npm install before using to make sure you have the most up to date no
 
 Please refer to the video link below as a demonstration.
 
-[Demo]()
+[Demo Video](https://drive.google.com/file/d/1J60W9ARbCvUsFyCiHP-8wyPF60_Ycuxm/view)
 
 ## License
 
